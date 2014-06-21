@@ -4,7 +4,7 @@
     <version>0.1</version>
     <license>GPL</license>
     <type>admin</type>
-    <entry>index.php</entry>
+    <entry>admin.php</entry>
     <icon>icon.png</icon>
 
     <description>
