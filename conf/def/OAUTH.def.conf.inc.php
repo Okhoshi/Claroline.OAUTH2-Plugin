@@ -18,10 +18,25 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package OAUTH
  */
 
-$conf_def['config_file']='OAUTH.conf.php';
-$conf_def['config_code']='OAUTH';
-$conf_def['config_name']='OAuth Servers Suite';
-$conf_def['config_class']='applet';
+$conf_def['config_file']  = 'auth.oauth.conf.php';
+$conf_def['config_code']  = 'OAUTH';
+$conf_def['config_name']  = 'OAuth Servers Suite';
+$conf_def['config_class'] = 'admin';
 
+$conf_def['section']['OAuth']['label']       = 'OAuth 2.0 Resources';
+$conf_def['section']['OAuth']['description'] = '';
+$conf_def['section']['OAuth']['properties']  = array(
+    'OAuthEnabled'
+);
+
+$conf_def_property_list[ 'OAuthEnabled' ] =
+    array ( 'label'       => 'Autorise les connexions via OAuth',
+            'description' => '',
+            'default'     => TRUE,
+            'type'        => 'boolean',
+            'display'     => TRUE,
+            'readonly'    => FALSE,
+            'acceptedValue' => array('TRUE' => 'Oui', 'FALSE' => 'Non')
+);
 
 ?>

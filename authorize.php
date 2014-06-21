@@ -15,11 +15,13 @@
  */
 $tlabelReq = 'OAUTH';
 
-require_once dirname(__FILE__) . '/server.php';
+require_once dirname( __FILE__ ) . '/../../claroline/inc/claro_init_global.inc.php';
 
 if (!claro_is_user_authenticated()) {
     claro_disp_auth_form();
 }
+
+require_once dirname( __FILE__ ) . '/lib/InitServer.php';
 
 $request = OAuth2\Request::createFromGlobals();
 $response = new OAuth2\Response();

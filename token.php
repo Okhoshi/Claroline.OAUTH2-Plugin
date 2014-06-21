@@ -15,7 +15,8 @@
  */
 $tlabelReq = 'OAUTH';
 
-require_once dirname(__FILE__) . '/server.php';
+require_once dirname( __FILE__ ) . '/../../claroline/inc/claro_init_global.inc.php';
+require_once dirname( __FILE__ ) . '/lib/InitServer.php';
 
 // Handle a request for an OAuth2.0 Access Token and send the response to the client
 $server->handleTokenRequest(OAuth2\Request::createFromGlobals())->send();

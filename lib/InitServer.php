@@ -15,11 +15,6 @@
  */
 $tlabelReq = 'OAUTH';
 
-require_once dirname( __FILE__ ) . '/../../claroline/inc/claro_init_global.inc.php';
-
-// error reporting (this is a demo, after all!)
-ini_set('display_errors',1);error_reporting(E_ALL);
-
 From::module($tlabelReq)->uses('OAuth2/Autoloader');
 OAuth2\Autoloader::register();
 
