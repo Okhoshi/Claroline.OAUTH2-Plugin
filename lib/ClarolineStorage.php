@@ -78,6 +78,7 @@ class ClarolineStorage implements AuthorizationCodeInterface,
         if (!$result->isEmpty()) {
             $token = $result->fetch();
             $token['expires'] = strtotime($token['expires']);
+            return $token;
         }
 
         return null;
@@ -126,7 +127,7 @@ class ClarolineStorage implements AuthorizationCodeInterface,
             );
         }
 
-        return Claroline::getDatabase()->exec($stmt);
+        return \Claroline::getDatabase()->exec($stmt);
     }
 
     /**
@@ -215,7 +216,7 @@ class ClarolineStorage implements AuthorizationCodeInterface,
                 \Claroline::getDatabase()->escape($code)
             );
         } else {
-            $stmt = sprintf('INSERT INTO `%s` (`access_token`, `client_id`, `expires`, `user_id`, `scope`, `redirect_uri`) VALUES (\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\')',
+            $stmt = sprintf('INSERT INTO `%s` (`authorization_code`, `client_id`, `expires`, `user_id`, `scope`, `redirect_uri`) VALUES (\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\')',
                 $this->config['code_table'],
                 \Claroline::getDatabase()->escape($code),
                 \Claroline::getDatabase()->escape($client_id),
@@ -226,7 +227,7 @@ class ClarolineStorage implements AuthorizationCodeInterface,
             );
         }
 
-        return Claroline::getDatabase()->exec($stmt);
+        return \Claroline::getDatabase()->exec($stmt);
     }
 
     private function setAuthorizationCodeWithIdToken($code, $client_id, $user_id, $redirect_uri, $expires, $scope = null, $id_token = null)
@@ -258,7 +259,7 @@ class ClarolineStorage implements AuthorizationCodeInterface,
             );
         }
 
-        return Claroline::getDatabase()->exec($stmt);
+        return \Claroline::getDatabase()->exec($stmt);
     }
 
     /**
@@ -682,11 +683,10 @@ class ClarolineStorage implements AuthorizationCodeInterface,
      */
     public function scopeExists($scope)
     {
-        $scope = explode(' ', \Claroline::getDatabase()->escape($scope));
-        $whereIn = implode(',', array_fill(0, count($scope), '?'));
-        $stmt = sprintf('SELECT count(scope) as count FROM `%s` WHERE `scope` IN (%s)',
+        $scope = str_replace(' ', '\',\'', \Claroline::getDatabase()->escape($scope));
+        $stmt = sprintf('SELECT count(scope) as count FROM `%s` WHERE `scope` IN (\'%s\')',
             $this->config['scope_table'],
-            $whereIn
+            $scope
         );
         $result = \Claroline::getDatabase()->query($stmt);
 

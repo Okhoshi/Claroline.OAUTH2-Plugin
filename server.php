@@ -15,15 +15,19 @@
  */
 $tlabelReq = 'OAUTH';
 
+require_once dirname( __FILE__ ) . '/../../claroline/inc/claro_init_global.inc.php';
+
 // error reporting (this is a demo, after all!)
 ini_set('display_errors',1);error_reporting(E_ALL);
 
 From::module($tlabelReq)->uses('OAuth2/Autoloader');
 OAuth2\Autoloader::register();
 
+From::module($tlabelReq)->uses('ClarolineStorage');
 $storage = new OAuth2\Storage\ClarolineStorage();
 
 $server = new OAuth2\Server($storage);
 $server->addGrantType(new OAuth2\GrantType\AuthorizationCode($storage));
+$server->addGrantType(new OAuth2\GrantType\RefreshToken($storage));
 
 ?>
