@@ -1,0 +1,25 @@
+<module>
+    <label>OAUTH</label>
+    <name>OAuth 2.0 Servers Suite</name>
+    <version>0.1</version>
+    <license>GPL</license>
+    <type>applet</type>
+    <entry>index.php</entry>
+    <icon>icon.png</icon>
+
+    <description>
+        <![CDATA[Provides an OAuth Servers suite.]]>
+    </description>
+
+    <author>
+        <name>Quentin Devos</name>
+        <email>q.devos@student.uclouvain.be</email>
+        <web>http://www.claroline.net</web>
+    </author>
+
+    <requirements>
+        <claroline>
+            <version>1.9</version>
+        </claroline>
+    </requirements>
+</module>
