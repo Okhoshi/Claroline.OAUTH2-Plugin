@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__oauth_clients` (
   `client_id`     VARCHAR(80)   NOT NULL,
+  `client_name`   VARCHAR(200)  NOT NULL,
   `client_secret` VARCHAR(80)   NOT NULL,
   `redirect_uri`  VARCHAR(2000) NOT NULL,
   `grant_types`   VARCHAR(80),
@@ -55,3 +56,5 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__oauth_jwt` (
   CONSTRAINT `client_id_pk` PRIMARY KEY (`client_id`)
 )
   ENGINE = MyISAM;
+
+INSERT INTO `__CL_MAIN__oauth_scopes` (`is_default`, `scope`) VALUES (TRUE, 'Basic');
