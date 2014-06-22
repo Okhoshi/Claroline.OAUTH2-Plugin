@@ -13,12 +13,11 @@
  * @author Quentin Devos <q.devos@student.uclouvain.be>
  *
  */
-$tlabelReq = 'OAUTH';
 
-From::module($tlabelReq)->uses('OAuth2/Autoloader');
+From::module('OAUTH')->uses('OAuth2/Autoloader');
 OAuth2\Autoloader::register();
 
-From::module($tlabelReq)->uses('ClarolineStorage');
+From::module('OAUTH')->uses('ClarolineStorage');
 $storage = new OAuth2\Storage\ClarolineStorage();
 
 $server = new OAuth2\Server($storage);

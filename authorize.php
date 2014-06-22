@@ -13,9 +13,9 @@
  * @author Quentin Devos <q.devos@student.uclouvain.be>
  *
  */
-$tlabelReq = 'OAUTH';
-
 require_once dirname( __FILE__ ) . '/../../claroline/inc/claro_init_global.inc.php';
+
+$tlabelReq = 'OAUTH';
 
 if (!claro_is_user_authenticated()) {
     claro_disp_auth_form();

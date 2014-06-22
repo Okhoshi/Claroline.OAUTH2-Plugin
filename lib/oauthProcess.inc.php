@@ -13,7 +13,6 @@
  * @author Quentin Devos <q.devos@student.uclouvain.be>
  *
  */
-$claro_loginRequested = true;
 
 require get_module_path('OAUTH') . '/lib/InitServer.php';
 
@@ -28,5 +27,6 @@ if ($server->verifyResourceRequest(OAuth2\Request::createFromGlobals())) {
 } else {
     $_uid = null;
     $claro_loginSucceeded = false;
+    $claro_loginRequested = false;
 }
 ?>
