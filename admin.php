@@ -27,7 +27,8 @@ $tableName = get_module_main_tbl( array('oauth_clients') );
 $tableName = $tableName['oauth_clients'];
 
 $allowedCommandList = array(
-  'Delete'
+    'Delete',
+    'Create'
 );
 
 $cmd = isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'], $allowedCommandList)
@@ -38,20 +39,70 @@ $clientId = isset($_REQUEST['clientid'])
     ? $_REQUEST['clientid']
     : '';
 
+$clientName = isset($_REQUEST['client_name'])
+    ? $_REQUEST['client_name']
+    : '';
+
+$redirectUri = isset($_REQUEST['redirect_uri'])
+    ? $_REQUEST['redirect_uri']
+    : '';
+
 $dialogBox = new DialogBox();
 
 if(!empty($cmd)){
     switch( $cmd ){
         case 'Delete':
         {
-            $successMsg = get_lang('Client deleted');
-            $sql = "DELETE FROM `" . $tableName . "` WHERE `client_id` = '" . $clientId . "';";
+            if ( $clientId !== '' )
+            {
+                $successMsg = get_lang( 'Client deleted' );
+                $sql = "DELETE FROM `" . $tableName . "` WHERE `client_id` = '" . Claroline::getDatabase()->escape($clientId) . "';";
+                Claroline::getDatabase()->exec($sql);
+            }
+        } break;
+        case 'Create':
+        {
+            if ( $clientName === '' || $redirectUri === '' )
+            {
+                $errorMsg = get_lang( 'Missing required field(s)' );
+                break;
+            }
+
+            function random($car) {
+                $string = "";
+                $chaine = "abcdefghijklmnpqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                srand((double)microtime()*1000000);
+                for($i=0; $i<$car; $i++) {
+                    $string .= $chaine[rand()%strlen($chaine)];
+                }
+                return $string;
+            }
+
+            $sql = 'SELECT `client_id` FROM `' . $tableName . '`;';
+            $ids = Claroline::getDatabase()->query($sql);
+            $ids = $ids->fetch();
+
+            do
+            {
+                $clientId = random(16);
+            } while ( $ids && in_array( $clientId, $ids ) );
+
+            $clientSecret = random(64);
+
+            $sql = sprintf('INSERT INTO `%s` (`client_id`, `client_name` ,`client_secret`, `redirect_uri`) VALUES (\'%s\', \'%s\', \'%s\', \'%s\')',
+                $tableName,
+                $clientId,
+                Claroline::getDatabase()->escape($clientName),
+                $clientSecret,
+                Claroline::getDatabase()->escape($redirectUri)
+            );
             Claroline::getDatabase()->exec($sql);
+            $successMsg = get_lang( 'Client created' );
         } break;
     }
 }
 
-$sql = "SELECT `client_name`, `client_id`, `client_secret`, `redirect_uri` FROM `$tableName`;";
+$sql = "SELECT `client_name`, `client_id`, `client_secret`, `redirect_uri` FROM `" . $tableName . "`;";
 $clients = Claroline::getDatabase()->query($sql);
 
 $template = new ModuleTemplate( $tlabelReq , 'admin.tpl.php' );
