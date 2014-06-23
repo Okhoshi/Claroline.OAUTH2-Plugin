@@ -13,9 +13,9 @@
  * @author Quentin Devos <q.devos@student.uclouvain.be>
  *
  */
-require_once __DIR__ . '/../../claroline/inc/claro_init_global.inc.php';
-
 $tlabelReq = 'OAUTH';
+
+require_once __DIR__ . '/../../claroline/inc/claro_init_global.inc.php';
 
 // As we are trying to get the authorization of a particular user, it works better if this one is logged in.
 if (!claro_is_user_authenticated()) {
