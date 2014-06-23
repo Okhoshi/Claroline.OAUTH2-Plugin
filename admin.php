@@ -68,6 +68,13 @@ if(!empty($cmd)){
                 break;
             }
 
+            /**
+             * Generate a string of random chars of length $car.
+             * @param $car int
+             *          The length of the string to create.
+             * @return string
+             *          The random string created.
+             */
             function random($car) {
                 $string = "";
                 $chaine = "abcdefghijklmnpqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
