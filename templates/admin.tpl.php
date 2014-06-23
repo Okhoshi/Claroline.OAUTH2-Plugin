@@ -5,11 +5,11 @@
             <table class="claroTable emphaseLine">
                 <thead>
                 <tr class="headerX">
-                    <th align="center" style="width: 20%;"><?php echo get_lang( 'Name' ); ?></th>
-                    <th align="center" style="width: 20%;"><?php echo get_lang( 'Id' ); ?></th>
-                    <th align="center" style="width: 30%;"><?php echo get_lang( 'Secret key' ); ?></th>
-                    <th align="center" style="width: 30%;"><?php echo get_lang( 'Redirect Uri' ); ?></th>
-                    <th align="center"><?php echo get_lang( 'Delete' ); ?></th>
+                    <th style="text-align:center;width: 20%;"><?php echo get_lang( 'Name' ); ?></th>
+                    <th style="text-align:center;width: 20%;"><?php echo get_lang( 'Id' ); ?></th>
+                    <th style="text-align:center;width: 30%;"><?php echo get_lang( 'Secret key' ); ?></th>
+                    <th style="text-align:center;width: 30%;"><?php echo get_lang( 'Redirect Uri' ); ?></th>
+                    <th style="text-align:center;"><?php echo get_lang( 'Delete' ); ?></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -19,7 +19,7 @@
                         <td><?php echo $client['client_id']; ?></td>
                         <td><?php echo $client['client_secret']; ?></td>
                         <td><?php echo $client['redirect_uri']; ?></td>
-                        <td align="center">
+                        <td style="text-align:center;">
                             <a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF'] .'?cmd=Delete&amp;clientid=' . rawurlencode($client['client_id']); ?>">
                                 <img src="<?php echo get_icon_url('delete'); ?>" alt="<?php echo get_lang('Delete'); ?>" />
                             </a>
@@ -53,11 +53,12 @@
                 <dt>
                     <input type="hidden" name="cmd" id="cmd" value="Create">
                     <input type="submit" name="create" value="<?php echo get_lang( 'Create' ); ?>">
-                <p class="notice">
-                    <span class="required">*</span> indique un champ obligatoire
-                </p>
                 </dt>
-                <dd></dd>
+                <dd>
+                    <p class="notice">
+                        <span class="required">*</span> indique un champ obligatoire
+                    </p>
+                </dd>
             </dl>
         </div>
     </fieldset>

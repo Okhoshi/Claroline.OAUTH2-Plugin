@@ -1,0 +1,14 @@
+225a226,232
+> // OAUTH 2.0
+> $oauth_conf_path = claro_get_conf_repository() . 'auth.oauth.conf.php';
+> if ( file_exists($oauth_conf_path) )
+> {
+>     require_once $oauth_conf_path;
+> }
+> 
+394a402,406
+>     }
+> 
+>     // OAUTH 2.0
+>     if ( get_conf('OAuthEnabled', false) ) {
+>         require get_module_path('OAUTH') . '/lib/oauthProcess.inc.php';

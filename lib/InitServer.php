@@ -35,5 +35,3 @@ $server = new OAuth2\Server($storage, $config);
 $server->addGrantType(new OAuth2\GrantType\AuthorizationCode($storage));
 // RefreshToken allows the regeneration of the Access Tokens without re-asking permission from the user.
 $server->addGrantType(new OAuth2\GrantType\RefreshToken($storage));
-
-?>

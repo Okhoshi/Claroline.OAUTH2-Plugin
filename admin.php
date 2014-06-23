@@ -13,11 +13,12 @@
  * @author Quentin Devos <q.devos@student.uclouvain.be>
  *
  */
+
 $tlabelReq = 'OAUTH';
 
 $pageTitle = array('mainTitle' => 'OAuth 2.0 Administration', 'subTitle' => 'OAuth Clients');
 
-require_once dirname( __FILE__ ) . '/../../claroline/inc/claro_init_global.inc.php';
+require_once __DIR__ . '/../../claroline/inc/claro_init_global.inc.php';
 
 if(!claro_is_platform_admin()){
     claro_die('Not Allowed');
@@ -25,6 +26,10 @@ if(!claro_is_platform_admin()){
 
 $tableName = get_module_main_tbl( array('oauth_clients') );
 $tableName = $tableName['oauth_clients'];
+
+/*---------------------------------------------------------------------------
+    Execute command
+ ---------------------------------------------------------------------------*/
 
 $allowedCommandList = array(
     'Delete',
@@ -51,6 +56,8 @@ $dialogBox = new DialogBox();
 
 if(!empty($cmd)){
     switch( $cmd ){
+
+        // Remove an existing client from the database.
         case 'Delete':
         {
             if ( $clientId !== '' )
@@ -60,6 +67,9 @@ if(!empty($cmd)){
                 Claroline::getDatabase()->exec($sql);
             }
         } break;
+
+        // Insert a new client in the database. We just need a name and the redirect uri to use during the authorization
+        // process. The client id and secret are randomly generated.
         case 'Create':
         {
             if ( $clientName === '' || $redirectUri === '' )
@@ -109,6 +119,11 @@ if(!empty($cmd)){
     }
 }
 
+/*---------------------------------------------------------------------------
+    Show existing clients
+ ---------------------------------------------------------------------------*/
+
+
 $sql = "SELECT `client_name`, `client_id`, `client_secret`, `redirect_uri` FROM `" . $tableName . "`;";
 $clients = Claroline::getDatabase()->query($sql);
 
@@ -133,6 +148,4 @@ ClaroBody::getInstance()->appendContent( claro_html_tool_title( $pageTitle )
                                        . $template->render()
 );
 
-echo Claroline::getInstance()->display->render();
-
-?>
+echo Claroline::getDisplay()->render();

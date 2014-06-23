@@ -56,5 +56,3 @@ if (empty($_POST)) {
     $server->handleAuthorizeRequest($request, $response, $is_authorized, claro_get_current_user_id());
     $response->send();
 }
-
-?>

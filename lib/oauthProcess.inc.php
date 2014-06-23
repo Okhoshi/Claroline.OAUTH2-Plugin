@@ -14,19 +14,20 @@
  *
  */
 
-require get_module_path('OAUTH') . '/lib/InitServer.php';
+require_once get_module_path('OAUTH') . '/lib/InitServer.php';
 
+// Check that the provided Access Token is valid.
 if ($server->verifyResourceRequest(OAuth2\Request::createFromGlobals())) {
+    // Retrieve informations from the token and log in the corresponding user.
     $token = $server->getAccessTokenData(OAuth2\Request::createFromGlobals());
 
-    $_uid = $token['user_id'];
-    $uidReset = true;
+    $GLOBALS['_uid'] = $token['user_id'];
+    $GLOBALS['uidReset'] = true;
 
     $claro_loginRequested = true;
     $claro_loginSucceeded = true;
 } else {
-    $_uid = null;
+    $GLOBALS['_uid'] = null;
     $claro_loginSucceeded = false;
     $claro_loginRequested = false;
 }
-?>

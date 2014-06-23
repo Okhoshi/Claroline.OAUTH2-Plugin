@@ -38,5 +38,3 @@ $conf_def_property_list[ 'OAuthEnabled' ] =
             'readonly'    => FALSE,
             'acceptedValue' => array('TRUE' => 'Oui', 'FALSE' => 'Non')
 );
-
-?>

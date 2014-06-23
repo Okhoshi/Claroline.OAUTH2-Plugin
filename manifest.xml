@@ -3,8 +3,8 @@
     <name>OAuth 2.0 Servers Suite</name>
     <version>0.1</version>
     <license>GPL</license>
-    <type>admin</type>
-    <entry>admin.php</entry>
+    <type>applet</type>
+    <entry>entry.php</entry>
     <icon>icon.png</icon>
 
     <description>
